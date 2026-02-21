@@ -27,11 +27,16 @@
     return defaultVal;
   };
 
-  const API_URL = getAttr("api", "");
+  const API_URL = getAttr("api", getAttr("server", ""));
+  const NORMALIZED_API_URL = API_URL.replace(/\/+$/, "");
+  const CHAT_API_BASE = NORMALIZED_API_URL.endsWith("/api/chat")
+    ? NORMALIZED_API_URL
+    : NORMALIZED_API_URL + "/api/chat";
   const THEME = getAttr("theme", "light");
   const POSITION = getAttr("position", "bottom-right");
   const TITLE = getAttr("title", "AI Assistant");
-  const GREETING = getAttr("greeting", "Привет! 👋 Чем могу помочь?");
+  const GREETING = getAttr("greeting", getAttr("welcome", "Привет! 👋 Чем могу помочь?"));
+  const INPUT_PLACEHOLDER = getAttr("placeholder", "Напишите сообщение...");
 
   // Page filtering (include/exclude)
   // Use data-include="/path1,/path2" or data-exclude="/admin,/checkout"
@@ -446,7 +451,7 @@
           </div>
         </div>
         <div class="ai-chat-input-container">
-          <textarea id="ai-chat-input" class="ai-chat-input" placeholder="Напишите сообщение..." rows="1"></textarea>
+          <textarea id="ai-chat-input" class="ai-chat-input" placeholder="${INPUT_PLACEHOLDER}" rows="1"></textarea>
           <button id="ai-chat-send" class="ai-chat-send" aria-label="Send message">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -601,7 +606,7 @@
         const pageContext = getPageContext();
         lastSelectedText = ""; // Clear after capturing
 
-        const response = await fetch(API_URL + "/chat/message", {
+        const response = await fetch(CHAT_API_BASE + "/message", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

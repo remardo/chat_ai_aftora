@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local Chat Widget Test</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: #f5f7fb;
+      color: #111827;
+    }
+    .wrap {
+      max-width: 760px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+    h1 {
+      margin-bottom: 12px;
+    }
+    p {
+      line-height: 1.6;
+    }
+    code {
+      background: #e5e7eb;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Тест локального AI Chat Widget</h1>
+    <p>Если backend запущен на <code>http://127.0.0.1:8080</code>, кнопка чата появится справа снизу.</p>
+  </main>
+
+  <script
+    src="http://127.0.0.1:8080/widget/widget.js?v=3"
+    data-server="http://127.0.0.1:8080"
+    data-title="Support"
+    data-welcome="Hi! How can I help you?"
+    data-placeholder="Type your message..."
+    data-position="bottom-right"
+  ></script>
+</body>
+</html>
